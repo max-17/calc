@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Submit Form Using AJAX PHP and javascript</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <link href="styles.css" rel="stylesheet">
+</head>
+
+<body>
+<h2>Calculator</h2>
+<h3>Please enter numbers and operations in input fields below:</h3>
+
+<form id="form" name="form" method='post' action="/">
+    <p>Input 1: <input style="width: 50px;" type="number" id="inp1">
+        Operation: <input style="width: 50px;" type="text" id="opt1">
+        Input 2: <input style="width: 50px;" type="number" id="inp2">
+        Operation: <input style="width: 50px;" type="text" id="opt2">
+        Input 3: <input style="width: 50px;" type="number" id="inp3"></p>
+        <input id="but" type='button' value='click' name='submit'><br>
+    <p>Answer: <div id="answer"></div></p>
+</form>
+
+
+
+  <!-- Script -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+    
+    $(document).ready(function () {
+        $('#but').click(function(){
+            var inp1 = document.getElementById("inp1").value;
+            var inp2 = document.getElementById("inp2").value;
+            var inp3 = document.getElementById("inp3").value;
+            var opt1 = document.getElementById("opt1").value;
+            var opt2 = document.getElementById("opt2").value;
+
+            // Returns successful data submission message when the entered information is stored in database.
+            var dataString = '$inp1=' + inp1 + '&opt1=' + opt1 + '&inp2=' + inp2 + '&opt2=' + opt2 + '&inp3=' + inp3;
+            if (inp1 == '' || inp2 == '' || inp3 == '' || opt1 == '' || opt2 == '') {
+                document.getElementById("answer").innerHTML = "";
+            } else {
+                // AJAX code to submit form.
+                $.ajax({
+                    type: "POST",
+                    url: 'getans.php',
+                    data: dataString,
+                    success: function(response) {$('#answer').text(response);}
+                });
+            }    
+        });
+    });
+</script>
+
+</body>
+</html>
